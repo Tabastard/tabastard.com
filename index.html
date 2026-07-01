@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="description" content="The Can Tab Collector of the Century; Building the Internets Largest Curated Collection of Pull Tabs; One Tab Find at a Time! - TabBastard's #GotTabs">
+    <title>TabBastard™ - An Absolute Embarrassment of Pop Tabs</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tabastard.com/">
+    <meta property="og:title" content="TabBastard™ - An Absolute Embarrassment of Pop Tabs">
+    <meta property="og:description" content="The Can Tab Collector of the Century; Building the Internets Largest Curated Collection of Pull Tabs; One Tab Find at a Time! #GotTabs">
+    <meta property="og:image" content="https://tabastard.com/images/tabastard_banner.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:site_name" content="TabBastard">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://tabastard.com/">
+    <meta name="twitter:title" content="TabBastard™ - An Absolute Embarrassment of Pop Tabs">
+    <meta name="twitter:description" content="The Can Tab Collector of the Century; Building the Internets Largest Curated Collection of Pull Tabs #GotTabs">
+    <meta name="twitter:image" content="https://tabastard.com/images/tabastard_banner.png">
+    <meta name="twitter:site" content="@TabBastard">
+    <meta name="twitter:creator" content="@TabBastard">
+    
+    <!-- Additional Meta -->
+    <meta property="og:locale" content="en_US">
+    <meta name="theme-color" content="#7C3AED">
+    <link rel="canonical" href="https://tabastard.com/">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHS6J41QP1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EHS6J41QP1');
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #000;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 1rem 2rem;
+        }
+
+        .profile-pic {
+            width: 156px;
+            height: 156px;
+            border-radius: 50%;
+            margin-bottom: 1.5rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 1rem 1rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.1);
+        }
+
+        .social-links img {
+            width: 24px;
+            height: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 2rem 1rem 1.5rem;
+            }
+
+            .profile-pic {
+                width: 130px;
+                height: 130px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .social-links {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 0;
+                padding: 0;
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .social-links a {
+                aspect-ratio: 1/1;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .social-links img {
+                width: 36%;
+                height: 36%;
+                max-width: none;
+                max-height: none;
+            }
+        }
+
+        .bio {
+            max-width: 800px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .bio strong {
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .bio .compendium {
+            font-size: 2rem;
+            margin: 1rem 0;
+        }
+
+        .bio .collection-link {
+            display: inline-block;
+            color: #7C3AED;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 2.5rem;
+            margin: 1.5rem 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .bio .collection-link:hover {
+            opacity: 0.7;
+        }
+
+        @media (max-width: 600px) {
+            .bio {
+                font-size: 1rem;
+                padding: 1.5rem 1rem;
+            }
+
+            .bio .compendium {
+                font-size: 1.6rem;
+            }
+
+            .bio .collection-link {
+                font-size: 2rem;
+            }
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 2rem 1rem;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 100%;
+            width: 100%;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        footer a:hover {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="https://www.instagram.com/tabbastard" target="_blank" rel="noopener" aria-label="TabBastard Instagram Profile">
+            <img src="images/tabastard-profile.png" alt="TabBastard Profile" class="profile-pic">
+        </a>
+        <h1>Tab₿astard™</h1>
+        <p class="tagline">An Absolute Embarrassment of Pop Tabs</p>
+    </header>
+
+    <section class="bio">
+        <p>They call me <strong>Tab Bastard</strong> for a reason.</p>
+        <p>I'm building the worlds biggest collection of soda tabs</p>
+        <br>
+        <p>For over two decades, I've hunted down, collected, and archived every kind of <strong>pull tab</strong> I could get my hands on, and boy did my hands get dirty!</p>
+        <br>
+        <p>I've built what may one day be recognized as<br><strong>The Guinness World Record Largest Collection of Pop Tabs</strong>.</p>
+        <br>
+        <p>But this isn't <em>just</em> the world's largest pile of <strong>soda pop tabs</strong> that you've never seen.<br>This is something bigger and better</p>
+        <br>
+        <p>Since the turn of the century, I've been crushing empty cans and only keeping the rarest of Pop Tabs, Can Tabs. Pull Tabs. Soda Tabs. Ring Pulls. Juice Tabs. Stay-Tabs. Zip Tops. U-Tabs</p>
+        <br>
+        <p>What I've compiled might just be…</p>
+        <br>
+        <p class="compendium"><strong>The Most Complete & Comprehensive Compendium of Curated & Catalogued Can Tabs Ever Collected This Century</strong></p>
+        <br>
+        <p><strong>Simply:</strong></p>
+        
+        <a href="https://tabastard.com/the-internets-largest-pull-tab-collection.html" class="collection-link">THE WORLDS LARGEST COLLECTION OF POP TABS</a>
+        
+        <p style="font-style: italic; margin-top: 0.5rem; margin-bottom: 1.5rem;">A globally sourced archive of taxonomically organized aluminum beverage stay-on tabs — meticulously sorted by every size, shape, color, brand, and design variation.</p>
+        
+        <p>All aluminum. All tabulated. Yours truly — <strong><em>The TaBastard</em></strong>.</p>
+        <br>
+        <p>This record-breaking collection spans all five decades of <strong>pull tab</strong> history:</p>
+        <br>
+        <p>It's packed full of modern "Stay-on-Tab" from everyday energy drinks, imported beers and rare vintage soda cans to the ultra-rare, mythical, one-of-a-kind <strong>pull tabs</strong> your grandpa probably tossed out. Soda pop <strong>can tabs</strong> so obscure they don't exist in any known record. I've sorted and polished every damn pop tab color under the anodized aluminum rainbow.</p>
+        <br>
+        <p>Yes! ALL the colors</p>
+        <br>
+        <p>I even found the mythical "brown" <strong>pull tab</strong>.<br>it's real, it's glorious, and I've got one.</p>
+        <br>
+        <p>Once upon a <strong>pop tab</strong> in 2008, I had amassed every common <strong>tab</strong> on the market, I even thought I'd collected them all…</p>
+        <br>
+        <p>But, like that Pokémon kid learned:</p>
+        <p style="font-style: italic; font-size: 1.25rem; margin: 0.75rem 0;">"Ya ain't never gonna catch 'em all."</p>
+        
+        <p><strong>Pull tab</strong> collecting is a game that never ends — a <strong>labor of love</strong> only a true <strong>tab</strong> addict can understand.</p>
+        <br>
+        <p>I'll be <strong>tab</strong> huntin' <strong>tabs</strong> until the day I <strong>tab</strong>-out. 💀</p>
+        
+        <p>So this bastard of a tab collection just keeps growing…</p>
+        
+        <p>Because somewhere out there — on a can far, far away (or just around corner shop) there's always <strong>another can tab waiting to be popped.</strong></p>
+        <br>
+        
+        <a href="https://tabastard.com/the-internets-largest-pull-tab-collection.html" class="collection-link">THE WORLDS LARGEST COLLECTION OF PULL TABS</a>
+        
+        <p style="margin-top: 0.5rem;">(All drinks drunk by yours truly, The Can <strong>TabBastard</strong>)</p>
+        <br>
+        <p><strong>#DrinkDifferent #StayPopped #GetTabs</strong></p>
+    </section>
+
+    <nav class="social-links">
+        <a href="https://www.instagram.com/tabbastard" target="_blank" rel="noopener" aria-label="Instagram – tabbastard">
+            <img src="icons/instagram.png" alt="Instagram – tabbastard">
+        </a>
+        <a href="https://github.com/tabastard" target="_blank" rel="noopener" aria-label="GitHub – tabastard">
+            <img src="icons/github.png" alt="GitHub – tabastard">
+        </a>
+        <a href="https://www.linkedin.com/in/tabastard/" target="_blank" rel="noopener" aria-label="LinkedIn – tabastard">
+            <img src="icons/linkedin.png" alt="LinkedIn – tabastard">
+        </a>
+        <a href="https://www.patreon.com/cw/Tabastard" target="_blank" rel="noopener" aria-label="Patreon – Tabastard">
+            <img src="icons/patreon.png" alt="Patreon – Tabastard">
+        </a>
+        <a href="https://giphy.com/channel/Tabastard" target="_blank" rel="noopener" aria-label="Giphy – Tabastard">
+            <img src="icons/giphy.png" alt="Giphy – Tabastard">
+        </a>
+        <a href="https://medium.com/@tabastard" target="_blank" rel="noopener" aria-label="Medium – tabastard">
+            <img src="icons/medium.png" alt="Medium – tabastard">
+        </a>
+        <a href="https://substack.com/@tabasterd" target="_blank" rel="noopener" aria-label="Substack – tabasterd">
+            <img src="icons/substack.png" alt="Substack – tabasterd">
+        </a>
+        <a href="https://soundcloud.com/tabastard" target="_blank" rel="noopener" aria-label="SoundCloud – tabastard">
+            <img src="icons/soundcloud.png" alt="SoundCloud – tabastard">
+        </a>
+        <a href="https://x.com/TabBastard" target="_blank" rel="noopener" aria-label="X – TabBastard">
+            <img src="icons/x.png" alt="X – TabBastard">
+        </a>
+        <a href="https://www.pinterest.com/tabastard" target="_blank" rel="noopener" aria-label="Pinterest – tabastard">
+            <img src="icons/pinterest.png" alt="Pinterest – tabastard">
+        </a>
+        <a href="https://www.reddit.com/user/TabBastard" target="_blank" rel="noopener" aria-label="Reddit – TabBastard">
+            <img src="icons/reddit.png" alt="Reddit – TabBastard">
+        </a>
+        <a href="https://www.facebook.com/tabastard" target="_blank" rel="noopener" aria-label="Facebook – tabastard">
+            <img src="icons/facebook.png" alt="Facebook – tabastard">
+        </a>
+        <a href="https://www.tumblr.com/tabastard" target="_blank" rel="noopener" aria-label="Tumblr – tabastard">
+            <img src="icons/tumblr.png" alt="Tumblr – tabastard">
+        </a>
+        <a href="https://www.youtube.com/@Tabastard" target="_blank" rel="noopener" aria-label="YouTube – Tabastard">
+            <img src="icons/youtube.png" alt="YouTube – Tabastard">
+        </a>
+        <a href="https://www.tiktok.com/@tabastard" target="_blank" rel="noopener" aria-label="TikTok – tabastard">
+            <img src="icons/tiktok.png" alt="TikTok – tabastard">
+        </a>
+    </nav>
+
+    <footer>
+        © 2025 TabBastard™ • All Tabs Reserved • <a href="mailto:tabzillionaire@gmail.com">tabzillionaire@gmail.com</a>
+        <br><br>
+        <div style="opacity: 0.8; font-size: 0.85rem;">
+            Partner Sites: 
+            <a href="https://POPTAB.Museum" target="_blank" rel="noopener">POPTAB.Museum</a> • 
+            <a href="https://tabzillions.com/" target="_blank" rel="noopener">TABZILLIONS</a> • 
+            <a href="https://tabzeum.org/" target="_blank" rel="noopener">TABZEUM</a>
+        </div>
+    </footer>
+
+
+</body>
+</html>

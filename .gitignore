@@ -1,0 +1,15 @@
+# OS junk
+.DS_Store
+**/.DS_Store
+
+# Node (only needed to run generate-seo-pages.js locally)
+node_modules/
+
+# Original source image library — not part of the deployed site
+collection/
+
+# Editor / local tooling
+.claude/
+
+# Page generator — kept locally, not deployed
+generate-seo-pages.js

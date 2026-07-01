@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tab Bounties — 73 sought pull tabs from the TabBastard collection">
+    <title>Tab Bounties — Ta₿astard™</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        @font-face {
+            font-family: 'Super Comic';
+            src: url('fonts/Super%20Comic.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0b0b0d;
+            --panel: #15161a;
+            --panel-2: #1d1f25;
+            --line: #2a2d35;
+            --ink: #e9ecf1;
+            --ink-dim: #9aa2b1;
+            --accent: #d4b35a;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Top banner nav — hidden on load, reveals on scroll-up */
+        .site-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.25s ease;
+        }
+        .site-nav.nav-visible {
+            max-height: 60px;
+            opacity: 1;
+        }
+        .site-nav-btn {
+            display: block;
+            text-align: center;
+            padding: 11px 8px;
+            color: var(--ink-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-right: 1px solid var(--line);
+            transition: color 0.18s, background 0.18s;
+        }
+        .site-nav-btn:last-child { border-right: none; }
+        .site-nav-btn:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+        .site-nav-btn.active { color: var(--accent); }
+
+        /* Sticky search header */
+        header {
+            text-align: center;
+            padding: 0.5rem 1rem 0.6rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 11, 13, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        /* Search */
+        .search-wrap {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            min-width: 0;
+        }
+        .search-icon {
+            position: absolute;
+            left: 11px; top: 50%;
+            transform: translateY(-50%);
+            width: 14px; height: 14px;
+            stroke: var(--ink-dim);
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+        .search-input {
+            width: 100%;
+            background: #0d0e11;
+            border: 1px solid var(--line);
+            border-radius: 7px;
+            color: var(--ink);
+            font-size: 0.875rem;
+            font-family: inherit;
+            padding: 8px 12px 8px 34px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        .search-input::placeholder { color: var(--ink-dim); opacity: 0.55; }
+        .search-input:focus { border-color: rgba(212,179,90,0.45); }
+
+        /* Scrolling hero — h1, slogan, counters */
+        .page-hero {
+            text-align: center;
+            padding: 0.75rem 1rem 0.75rem;
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-content {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        h1 {
+            font-family: 'Super Comic', system-ui, -apple-system, sans-serif;
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            margin: 0 0 0.3rem;
+            width: 100%;
+            line-height: 1.08;
+            letter-spacing: 0.01em;
+        }
+
+        .h1-line {
+            display: block;
+            text-align: justify;
+            text-align-last: justify;
+            white-space: nowrap;
+        }
+
+        .page-slogan {
+            font-size: clamp(0.7rem, 1.8vw, 0.92rem);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            font-weight: 600;
+            margin: 0.3rem 0 0.15rem;
+            width: 100%;
+            line-height: 1.35;
+        }
+
+        /* Tab-switcher counter boxes — matches main page */
+        .tab-switcher {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 6px;
+            width: 100%;
+            margin-top: 0.9rem;
+        }
+        .tab-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 6px 12px;
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            background: var(--panel);
+            cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+        }
+        .tab-group:hover { background: rgba(255,255,255,0.03); }
+        .tab-group.active {
+            border-color: rgba(212,179,90,0.4);
+            background: rgba(212,179,90,0.04);
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 0;
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--ink-dim);
+            cursor: pointer;
+            font-family: inherit;
+            text-align: center;
+            width: 100%;
+            transition: color 0.18s;
+            white-space: nowrap;
+        }
+        .tab-group.active .tab-btn { color: var(--accent); }
+
+        /* Global Tab Index box: white/grey */
+        [data-section="index"].tab-group { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); cursor: pointer; }
+        [data-section="index"].tab-group .tab-btn { color: rgba(255,255,255,0.45); }
+        [data-section="index"].tab-group.active { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); }
+        [data-section="index"].tab-group.active .tab-btn { color: rgba(255,255,255,0.7); }
+        [data-section="index"].tab-group.active .tab-digit { color: #d0d4de; text-shadow: 0 0 6px rgba(255,255,255,0.1); box-shadow: inset 0 0 8px rgba(0,0,0,0.7); }
+        [data-section="index"].tab-group.active .tab-digit.leading-zero { color: #3a3c44; text-shadow: none; }
+
+        .tab-counter {
+            display: inline-flex;
+            gap: 2px;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+        .tab-digit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 1.45em;
+            height: 1.9em;
+            background: #080809;
+            border: 1px solid #2a2d35;
+            border-radius: 3px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1em;
+            color: var(--ink);
+            font-weight: 900;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.7);
+            overflow: hidden;
+            line-height: 1;
+            text-shadow: none;
+            transition: color 0.18s, text-shadow 0.18s;
+        }
+        .tab-digit.leading-zero { color: #3a3c44; }
+        .tab-group.active .tab-digit {
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(212,179,90,0.5);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.7), 0 0 6px rgba(212,179,90,0.08);
+        }
+        .tab-group.active .tab-digit.leading-zero { color: #3a3c44; text-shadow: none; }
+        .tab-digit.cycling { text-shadow: 0 0 12px rgba(212,179,90,0.9); }
+
+        /* Filter row — matches main page */
+        .filter-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 4px;
+        }
+        .filter-row-top {
+            gap: 0;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            width: 100%;
+            justify-content: space-between;
+        }
+        .tag {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            color: var(--ink-dim);
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line);
+            padding: 6px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            user-select: none;
+            transition: color 0.15s, background 0.15s, border-color 0.15s;
+            white-space: nowrap;
+            text-decoration: none;
+        }
+        .tag:hover { color: var(--ink); background: rgba(255,255,255,0.08); }
+        .tag-all { color: var(--ink-dim); text-decoration: none; }
+        .tag-all:hover { color: var(--ink); }
+        .tag-sep {
+            display: inline-block;
+            width: 1px;
+            height: 12px;
+            background: var(--line);
+            padding: 0;
+            margin: 0 2px;
+            pointer-events: none;
+            align-self: center;
+        }
+        .filter-row-top .tag {
+            background: none;
+            border: none;
+            padding: 4px 10px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            color: var(--ink-dim);
+            border-radius: 0;
+        }
+        .filter-row-top .tag:hover { background: none; color: var(--ink); }
+        .filter-row-top .tag.active { color: #ffffff; }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 0.5rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            contain: layout style;
+        }
+
+        .tab-item {
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1 / 1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tab-item:hover { transform: scale(1.08); z-index: 2; position: relative; }
+        .tab-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .tab-item img {
+            width: auto; height: auto;
+            max-width: 100%; max-height: 100%;
+            object-fit: contain;
+        }
+
+        @media (max-width: 600px) {
+            .gallery { grid-template-columns: repeat(7, 1fr); gap: 0.25rem; padding: 0.75rem; }
+        }
+
+        /* Social links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+            padding: 2rem 1rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .social-links a { display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; }
+        .social-links a:hover { transform: scale(1.1); }
+        .social-links img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+
+        @media (max-width: 600px) {
+            .social-links {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                grid-template-rows: repeat(3, 1fr);
+                gap: 0; padding: 0; width: 100%; max-width: 100%;
+            }
+            .social-links a { aspect-ratio: 1/1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+            .social-links img { width: 36%; height: 36%; max-width: none; max-height: none; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--ink-dim);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--line);
+        }
+        footer a { color: var(--ink); text-decoration: none; opacity: 0.85; transition: opacity 0.2s ease, color 0.2s ease; }
+        footer a:hover { opacity: 1; color: var(--accent); }
+
+        /* ── Hamburger button ── */
+        .hamburger {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.18s;
+        }
+        .header-search-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 8px;
+        }
+        .header-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.18s;
+        }
+        .header-logo:hover { opacity: 1; }
+        .header-logo svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--ink);
+        }
+                .hamburger:hover { background: rgba(255,255,255,0.07); }
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--ink-dim);
+            border-radius: 2px;
+            transition: background 0.18s, transform 0.25s, opacity 0.2s;
+            transform-origin: center;
+        }
+        .hamburger:hover span { background: var(--ink); }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── Nav overlay ── */
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 9000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+        /* ── Slide-out drawer ── */
+        .nav-drawer {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: min(260px, 82vw);
+            background: #111217;
+            border-left: 1px solid var(--line);
+            z-index: 9050;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .nav-drawer.open { transform: translateX(0); }
+        .nav-drawer-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px 12px;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+        .nav-drawer-title {
+            font-family: 'Super Comic', system-ui, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.07em;
+            color: var(--accent);
+        }
+        .nav-drawer-close {
+            background: none;
+            border: none;
+            color: var(--ink-dim);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.18s, background 0.18s;
+        }
+        .nav-drawer-close:hover { color: var(--ink); background: rgba(255,255,255,0.06); }
+        .nav-drawer-links {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0 24px;
+        }
+        .nav-drawer-link {
+            display: block;
+            padding: 13px 22px;
+            color: var(--ink-dim);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-left: 2px solid transparent;
+            transition: color 0.18s, background 0.18s, border-color 0.18s;
+        }
+        .nav-drawer-link:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+        .nav-drawer-link.active { color: var(--accent); border-left-color: var(--accent); }
+    </style>
+</head>
+<body>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+        <div class="nav-drawer-head">
+            <span class="nav-drawer-title">Ta₿astard™</span>
+            <button class="nav-drawer-close" id="drawerClose" aria-label="Close menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M6 6L18 18M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="nav-drawer-links">
+            <a class="nav-drawer-link" href="the-internets-largest-pull-tab-collection.html">Tab Index</a>
+            <a class="nav-drawer-link" href="#">Field Guide</a>
+            <a class="nav-drawer-link" href="bounties.html">Tab Bounties</a>
+            <a class="nav-drawer-link" href="#">Soda Memes</a>
+        </nav>
+    </div>
+
+    <nav class="site-nav">
+        <a class="site-nav-btn" href="the-internets-largest-pull-tab-collection.html">Home</a>
+        <a class="site-nav-btn" href="https://www.patreon.com/cw/Tabastard" target="_blank" rel="noopener">Guide</a>
+        <a class="site-nav-btn active" href="bounties.html">Bounties</a>
+        <a class="site-nav-btn" href="#">Rares</a>
+    </nav>
+
+    <header>
+        <div class="header-content">
+            <div class="header-search-row">
+                <div class="search-wrap">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round">
+                                    <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+                                </svg>
+                                <input type="text" class="search-input" id="searchInput"
+                                       placeholder="Search bounty tab IDs…" autocomplete="off" />
+                            </div>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="page-hero">
+        <div class="header-content">
+            <h1><span class="h1-line">Find Rare Tabs</span><span class="h1-line">Get Bounties!</span></h1>
+            <p class="page-slogan">An Absolute Embarrassment of Pop Tabs</p>
+            <div class="tab-switcher">
+                <div class="tab-group active" data-section="index" role="link" title="View all tabs"
+                     onclick="window.location.href='the-internets-largest-pull-tab-collection.html'" style="cursor:pointer;">
+                    <span class="tab-btn">Global Tab Index</span>
+                    <span class="tab-counter" id="tabCount"></span>
+                </div>
+                <div class="tab-group active" data-section="bounty">
+                    <span class="tab-btn">Active Bounties</span>
+                    <span class="tab-counter" id="countBounty"></span>
+                </div>
+            </div>
+            <div class="filter-row filter-row-top">
+                <a class="tag tag-all" href="the-internets-largest-pull-tab-collection.html">All</a>
+                <a class="tag" href="the-internets-largest-pull-tab-collection.html" data-cat="color">Color</a>
+                <a class="tag" href="the-internets-largest-pull-tab-collection.html" data-cat="brand">Brand</a>
+                <a class="tag" href="the-internets-largest-pull-tab-collection.html" data-cat="type">Type</a>
+                <a class="tag" href="the-internets-largest-pull-tab-collection.html" data-cat="era">Era</a>
+                <a class="tag" href="the-internets-largest-pull-tab-collection.html" data-cat="marks">Marks</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+
+    <nav class="social-links">
+        <a href="https://www.instagram.com/tabbastard" target="_blank" rel="noopener" aria-label="Instagram – tabbastard"><img src="icons/instagram.png" alt="Instagram – tabbastard"></a>
+        <a href="https://github.com/tabastard" target="_blank" rel="noopener" aria-label="GitHub – tabastard"><img src="icons/github.png" alt="GitHub – tabastard"></a>
+        <a href="https://www.linkedin.com/in/tabastard/" target="_blank" rel="noopener" aria-label="LinkedIn – tabastard"><img src="icons/linkedin.png" alt="LinkedIn – tabastard"></a>
+        <a href="https://www.patreon.com/cw/Tabastard" target="_blank" rel="noopener" aria-label="Patreon – Tabastard"><img src="icons/patreon.png" alt="Patreon – Tabastard"></a>
+        <a href="https://giphy.com/channel/Tabastard" target="_blank" rel="noopener" aria-label="Giphy – Tabastard"><img src="icons/giphy.png" alt="Giphy – Tabastard"></a>
+        <a href="https://medium.com/@tabastard" target="_blank" rel="noopener" aria-label="Medium – tabastard"><img src="icons/medium.png" alt="Medium – tabastard"></a>
+        <a href="https://substack.com/@tabasterd" target="_blank" rel="noopener" aria-label="Substack – tabasterd"><img src="icons/substack.png" alt="Substack – tabasterd"></a>
+        <a href="https://soundcloud.com/tabastard" target="_blank" rel="noopener" aria-label="SoundCloud – tabastard"><img src="icons/soundcloud.png" alt="SoundCloud – tabastard"></a>
+        <a href="https://x.com/TabBastard" target="_blank" rel="noopener" aria-label="X – TabBastard"><img src="icons/x.png" alt="X – TabBastard"></a>
+        <a href="https://www.pinterest.com/tabastard" target="_blank" rel="noopener" aria-label="Pinterest – tabastard"><img src="icons/pinterest.png" alt="Pinterest – tabastard"></a>
+        <a href="https://www.reddit.com/user/TabBastard" target="_blank" rel="noopener" aria-label="Reddit – TabBastard"><img src="icons/reddit.png" alt="Reddit – TabBastard"></a>
+        <a href="https://www.facebook.com/tabastard" target="_blank" rel="noopener" aria-label="Facebook – tabastard"><img src="icons/facebook.png" alt="Facebook – tabastard"></a>
+        <a href="https://www.tumblr.com/tabastard" target="_blank" rel="noopener" aria-label="Tumblr – tabastard"><img src="icons/tumblr.png" alt="Tumblr – tabastard"></a>
+        <a href="https://www.youtube.com/@Tabastard" target="_blank" rel="noopener" aria-label="YouTube – Tabastard"><img src="icons/youtube.png" alt="YouTube – Tabastard"></a>
+        <a href="https://www.tiktok.com/@tabastard" target="_blank" rel="noopener" aria-label="TikTok – tabastard"><img src="icons/tiktok.png" alt="TikTok – tabastard"></a>
+    </nav>
+
+    <footer>
+        © 2025 Ta₿astard™ • All Tabs Reserved • <a href="mailto:tabzillionaire@gmail.com">tabzillionaire@gmail.com</a>
+    </footer>
+
+    <script>
+        const BOUNTY_IMAGES = [
+            'bounty_001.png',
+            'bounty_00002.png','bounty_00003.png','bounty_00004.png','bounty_00005.png',
+            'bounty_00006.png','bounty_00007.png','bounty_00008.png','bounty_00009.png',
+            'bounty_00010.png','bounty_00011.png','bounty_00012.png','bounty_00013.png',
+            'bounty_00014.png','bounty_00015.png','bounty_00016.png','bounty_00017.png',
+            'bounty_00018.png','bounty_00019.png','bounty_00020.png','bounty_00021.png',
+            'bounty_00022.png','bounty_00023.png','bounty_00024.png','bounty_00025.png',
+            'bounty_00026.png','bounty_00027.png','bounty_00028.png','bounty_00029.png',
+            'bounty_00030.png','bounty_00031.png','bounty_00032.png','bounty_00033.png',
+            'bounty_00034.png','bounty_00035.png','bounty_00036.png','bounty_00037.png',
+            'bounty_00038.png','bounty_00039.png'
+        ];
+        const BOUNTY_COUNT = BOUNTY_IMAGES.length;
+        const DEMO_URL = 'poptab_00000.html';
+
+        // Build gallery from actual bounty images
+        const gallery = document.getElementById('gallery');
+        BOUNTY_IMAGES.forEach((fname, i) => {
+            const label = fname.replace('.png', '').replace('bounty_', '').replace(/^0+/, '') || '1';
+            const el = document.createElement('a');
+            el.className = 'tab-item';
+            el.href = DEMO_URL;
+            el.dataset.id = label;
+            el.setAttribute('aria-label', `Bounty Tab ${label} — open 3D view`);
+            el.innerHTML = `<img src="images/bounties/${fname}" alt="Bounty Tab #${label}" title="Bounty Tab #${label}" loading="lazy">`;
+            gallery.appendChild(el);
+        });
+
+        // Digital counter (5 digits, matches main page)
+        function makeCounter(el) {
+            const digits = 5;
+            const els = [];
+            for (let i = 0; i < digits; i++) {
+                const d = document.createElement('span');
+                d.className = 'tab-digit';
+                d.textContent = '0';
+                el.appendChild(d);
+                els.push(d);
+            }
+            return function cycle(n, fast) {
+                const target = String(Math.min(n, 99999)).padStart(digits, '0');
+                const tickMs = fast ? 30 : 45;
+                const totalMs = fast ? 600 : 1100;
+                els.forEach((d, i) => {
+                    d.classList.remove('leading-zero');
+                    d.classList.add('cycling');
+                    let ticks = 0;
+                    const settle = Math.round((totalMs / tickMs) * ((i + 1) / digits));
+                    let cur = Math.floor(Math.random() * 10);
+                    const iv = setInterval(() => {
+                        if (ticks >= settle) {
+                            clearInterval(iv);
+                            d.textContent = target[i];
+                            d.classList.remove('cycling');
+                            if (target[i] === '0' && target.slice(0, i + 1) === '0'.repeat(i + 1)) {
+                                d.classList.add('leading-zero');
+                            }
+                            return;
+                        }
+                        cur = (cur + 1) % 10;
+                        d.textContent = cur;
+                        ticks++;
+                    }, tickMs);
+                });
+            };
+        }
+
+        const GLOBAL_TOTAL = 1296; // matches main page tab count
+        const setGlobalCount = makeCounter(document.getElementById('tabCount'));
+        const setBounty      = makeCounter(document.getElementById('countBounty'));
+        setGlobalCount(GLOBAL_TOTAL, false);
+        setBounty(BOUNTY_COUNT, false);
+
+        // Nav: hidden on load, reveals on scroll-up
+        const siteNav = document.querySelector('.site-nav');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y < lastScrollY) siteNav.classList.add('nav-visible');
+            else siteNav.classList.remove('nav-visible');
+            lastScrollY = y;
+        }, { passive: true });
+
+        // Filter row — cat links pre-select a filter on the main page via sessionStorage
+        document.querySelectorAll('.filter-row-top .tag[data-cat]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                sessionStorage.setItem('tabastard_cat', link.dataset.cat);
+                window.location.href = link.href;
+            });
+        });
+
+        // Search — filters gallery by tab ID
+        const searchInput = document.getElementById('searchInput');
+        searchInput.addEventListener('input', () => {
+            const q = searchInput.value.trim().replace(/\D/g, '');
+            document.querySelectorAll('#gallery .tab-item').forEach(el => {
+                el.style.display = (!q || el.dataset.id.includes(q)) ? '' : 'none';
+            });
+        });
+        searchInput.addEventListener('keydown', e => {
+            if (e.key === 'Escape') { searchInput.value = ''; searchInput.dispatchEvent(new Event('input')); }
+        });
+
+        // h1 fit (binary search — matches main page)
+        function fitH1() {
+            const h1 = document.querySelector('h1');
+            if (!h1) return;
+            const lines = [...h1.querySelectorAll('.h1-line')];
+            if (!lines.length) return;
+            lines.forEach(l => { l.style.whiteSpace = 'nowrap'; l.style.textAlign = 'left'; });
+            h1.style.fontSize = '';
+            const containerW = h1.offsetWidth;
+            if (!containerW) return;
+            let lo = 8, hi = 300;
+            while (hi - lo > 0.5) {
+                const mid = (lo + hi) / 2;
+                h1.style.fontSize = mid + 'px';
+                if (Math.max(...lines.map(l => l.scrollWidth)) <= containerW) lo = mid; else hi = mid;
+            }
+            h1.style.fontSize = lo + 'px';
+            lines.forEach(l => { l.style.whiteSpace = ''; l.style.textAlign = ''; });
+        }
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+            fitH1();
+            window.addEventListener('resize', fitH1);
+        });
+
+        // ── Hamburger / slide-out drawer ──
+        (function() {
+            const btn      = document.getElementById('hamburgerBtn');
+            const drawer   = document.getElementById('navDrawer');
+            const overlay  = document.getElementById('navOverlay');
+            const closeBtn = document.getElementById('drawerClose');
+            if (!btn) return;
+
+            // Mark active link by matching href to current page
+            const page = location.pathname.split('/').pop() || 'index.html';
+            drawer.querySelectorAll('.nav-drawer-link').forEach(a => {
+                if (a.getAttribute('href').split('/').pop() === page) a.classList.add('active');
+            });
+
+            function open()  { btn.classList.add('open'); drawer.classList.add('open'); overlay.classList.add('open'); btn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+            function close() { btn.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('open'); btn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+            btn.addEventListener('click', () => btn.classList.contains('open') ? close() : open());
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+        })();
+    </script>
+</body>
+</html>

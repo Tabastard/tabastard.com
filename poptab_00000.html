@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pop Tab #00004 — TabBastard</title>
+  <meta name="description" content="Pop Tab #00004 — individual tab entry in the TabBastard archive." />
+  <link rel="icon" type="image/png" href="favicon.png">
+  <style>
+    :root {
+      --bg: #0b0b0d;
+      --fg: #e9ecf1;
+      --muted: #9aa2b1;
+      --line: #2a2d35;
+      --panel: #15161a;
+      --accent: #d4b35a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      height: 100%;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    /* X close — top right */
+    .close-btn {
+      position: fixed;
+      top: 18px; right: 18px;
+      width: 42px; height: 42px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      text-decoration: none;
+      border-radius: 50%;
+      transition: color 0.2s, background 0.2s, transform 0.2s;
+      z-index: 20;
+      user-select: none;
+    }
+    .close-btn:hover {
+      color: var(--accent);
+      background: rgba(255,255,255,0.05);
+      transform: rotate(90deg);
+    }
+    .close-btn svg {
+      width: 22px; height: 22px;
+      stroke: currentColor; stroke-width: 2;
+      fill: none; stroke-linecap: round;
+    }
+
+    /* Full-viewport stage — content sits in upper third so stats build down into view */
+    .stage {
+      height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: clamp(48px, 12vh, 100px);
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-bottom: 20px;
+      background: radial-gradient(ellipse at 50% 36%, #1a1c22 0%, #0b0b0d 68%);
+    }
+
+    /* Tab frame — only flip-zone + tab-code are in flow (so centering is stable).
+       Stats build downward via absolute positioning. */
+    .tab-frame {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 28px;
+      cursor: default;
+    }
+
+    /* Stats container — sits below in-flow content, grows downward only */
+    .stats-below {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      width: min(480px, 86vw);
+      padding-top: 14px;
+      pointer-events: none;
+    }
+
+    /* Flip container — click to flip */
+    .flip-zone {
+      cursor: pointer;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tab-img {
+      display: block;
+      max-height: 45vh;
+      max-width: min(416px, 64vw);
+      width: auto; height: auto;
+      object-fit: contain;
+      filter: url('#tab-filter');
+      transform-origin: center center;
+    }
+
+    /* ID shown at rest */
+    .tab-code {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--muted);
+      user-select: none;
+      opacity: 0.7;
+      transition: opacity 0.25s ease;
+    }
+    .tab-code.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* Divider */
+    .divider {
+      width: min(480px, 82vw);
+      height: 1px;
+      background: var(--line);
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+      transition: max-height 0.38s ease, opacity 0.3s ease;
+    }
+    .divider.open {
+      max-height: 2px;
+      opacity: 1;
+    }
+
+    /* Expanded meta stats grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px 16px;
+      max-width: min(520px, 90vw);
+      width: 100%;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.42s cubic-bezier(0.4,0,0.2,1), opacity 0.32s ease;
+    }
+    .meta-grid.open {
+      max-height: 180px;
+      opacity: 1;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .meta-label {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .meta-value {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--fg);
+      letter-spacing: 0.02em;
+    }
+    .meta-value.accent { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .tab-img { max-height: 38vh; }
+      .meta-grid { grid-template-columns: repeat(4, 1fr); gap: 8px 10px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .tab-img, .meta-grid, .divider, .tab-code { transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Combined drop-shadow + inner-edge filter for transparent PNG tabs.
+       Both effects use SourceAlpha from the original image so the inner
+       shadow traces the tab silhouette, not the rectangular image frame. -->
+  <svg width="0" height="0" style="position:absolute;overflow:hidden;pointer-events:none">
+    <defs>
+      <filter id="tab-filter" x="-25%" y="-25%" width="150%" height="150%" color-interpolation-filters="sRGB">
+        <!-- Outer drop shadow -->
+        <feDropShadow in="SourceGraphic" dx="0" dy="18" stdDeviation="24"
+                      flood-color="#000" flood-opacity="0.65" result="dropshadow"/>
+        <!-- Inner edge shadow: invert alpha → blur → clip back to tab shape -->
+        <feComponentTransfer in="SourceAlpha" result="inv">
+          <feFuncA type="table" tableValues="1 0"/>
+        </feComponentTransfer>
+        <feGaussianBlur in="inv" stdDeviation="6" result="blurred"/>
+        <feComposite in="blurred" in2="SourceAlpha" operator="in" result="edge"/>
+        <feFlood flood-color="#000" flood-opacity="0.6" result="black"/>
+        <feComposite in="black" in2="edge" operator="in" result="innershadow"/>
+        <!-- Stack: drop shadow → original image → inner edge -->
+        <feMerge>
+          <feMergeNode in="dropshadow"/>
+          <feMergeNode in="SourceGraphic"/>
+          <feMergeNode in="innershadow"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
+
+  <a class="close-btn" href="the-internets-largest-pull-tab-collection.html"
+     aria-label="Close and return to the gallery" title="Back to gallery">
+    <svg viewBox="0 0 24 24"><path d="M6 6 L18 18 M18 6 L6 18"/></svg>
+  </a>
+
+  <main class="stage" id="stage">
+    <div class="tab-frame" id="tabFrame">
+
+      <div class="flip-zone" id="flipZone">
+        <img class="tab-img" id="tabImg"
+             src="images/detail/0004-a.webp"
+             alt="Pop Tab #00004 — front" />
+      </div>
+
+      <div class="tab-code" id="tabCode">#00004</div>
+
+      <div class="stats-below">
+        <div class="divider" id="divider"></div>
+        <div class="meta-grid" id="metaGrid">
+        <div class="meta-item">
+          <span class="meta-label">ID</span>
+          <span class="meta-value accent">#00004</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Type</span>
+          <span class="meta-value">Stay-Tab</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Era</span>
+          <span class="meta-value">2000s Modern</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Color</span>
+          <span class="meta-value">Purple / Violet</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Material</span>
+          <span class="meta-value">Aluminum</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Surface</span>
+          <span class="meta-value">Anodized</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Dimensions</span>
+          <span class="meta-value">22 × 12 mm</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Weight</span>
+          <span class="meta-value">~0.5 g</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Condition</span>
+          <span class="meta-value">Excellent</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Side</span>
+          <span class="meta-value" id="metaSide">Obverse</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Collected</span>
+          <span class="meta-value">2024</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Source</span>
+          <span class="meta-value">Unknown</span>
+        </div>
+        </div><!-- /meta-grid -->
+      </div><!-- /stats-below -->
+
+    </div><!-- /tab-frame -->
+  </main>
+
+  <script>
+    const GALLERY   = 'the-internets-largest-pull-tab-collection.html';
+    const FRONT_SRC = 'images/detail/0004-a.webp';
+    const BACK_SRC  = 'images/detail/0004-b.webp';
+
+    const tabFrame = document.getElementById('tabFrame');
+    const flipZone = document.getElementById('flipZone');
+    const tabImg   = document.getElementById('tabImg');
+    const tabCode  = document.getElementById('tabCode');
+    const metaSide = document.getElementById('metaSide');
+    const metaGrid = document.getElementById('metaGrid');
+    const divider  = document.getElementById('divider');
+
+    let flipped = false;
+    let busy    = false;
+
+    // Preload back image
+    new Image().src = BACK_SRC;
+
+    function showStats() {
+      tabCode.classList.add('hidden');
+      metaGrid.classList.add('open');
+      divider.classList.add('open');
+    }
+
+    function hideStats() {
+      tabCode.classList.remove('hidden');
+      metaGrid.classList.remove('open');
+      divider.classList.remove('open');
+    }
+
+    // ── Lerp-based tilt loop — no CSS transitions ────────────────────────────
+    let tiltRafId = null;
+    let tgtY = 0, tgtX = 0, curY = 0, curX = 0;
+    const LERP = 0.1;
+
+    function tiltLoop() {
+      curY += (tgtY - curY) * LERP;
+      curX += (tgtX - curX) * LERP;
+      flipZone.style.transform = `perspective(700px) rotateY(${curY}deg) rotateX(${curX}deg)`;
+      const done = Math.abs(tgtY - curY) < 0.01 && Math.abs(tgtX - curX) < 0.01;
+      tiltRafId = done ? null : requestAnimationFrame(tiltLoop);
+    }
+
+    function startTiltLoop() {
+      if (!tiltRafId) tiltRafId = requestAnimationFrame(tiltLoop);
+    }
+
+    tabFrame.addEventListener('mousemove', e => {
+      if (busy) return;
+      const r = flipZone.getBoundingClientRect();
+      tgtY = ((e.clientX - (r.left + r.width  / 2)) / (r.width  / 2)) * 9;
+      tgtX = ((e.clientY - (r.top  + r.height / 2)) / (r.height / 2)) * -5;
+      startTiltLoop();
+    });
+
+    flipZone.addEventListener('mouseenter', () => { showStats(); });
+    tabFrame.addEventListener('mouseleave', () => {
+      tgtY = 0; tgtX = 0;
+      startTiltLoop();
+      hideStats();
+    });
+
+    // ── Flip ─────────────────────────────────────────────────────────────────
+    function doFlip() {
+      if (busy) return;
+      busy = true;
+
+      // Neutralise tilt during flip
+      if (tiltRafId) { cancelAnimationFrame(tiltRafId); tiltRafId = null; }
+      tgtY = 0; tgtX = 0; curY = 0; curX = 0;
+      flipZone.style.transform = 'perspective(700px) rotateY(0deg) rotateX(0deg)';
+
+      // Phase 1: rotate away (0 → 90°)
+      tabImg.style.transition = 'transform 0.18s ease-in, opacity 0.18s ease-in';
+      tabImg.style.transform  = 'rotateY(90deg)';
+      tabImg.style.opacity    = '0.3';
+
+      setTimeout(() => {
+        flipped = !flipped;
+
+        tabImg.src = flipped ? BACK_SRC : FRONT_SRC;
+        tabImg.alt = `Pop Tab #00004 — ${flipped ? 'back' : 'front'}`;
+        metaSide.textContent = flipped ? 'Reverse' : 'Obverse';
+
+        // Phase 2: rotate in (-90° → 0°)
+        tabImg.style.transition = 'none';
+        tabImg.style.transform  = 'rotateY(-90deg)';
+        tabImg.style.opacity    = '0.3';
+
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          tabImg.style.transition = 'transform 0.22s ease-out, opacity 0.22s ease-out';
+          tabImg.style.transform  = 'rotateY(0deg)';
+          tabImg.style.opacity    = '1';
+          setTimeout(() => { busy = false; }, 220);
+        }));
+      }, 180);
+    }
+
+    // Click on flip zone → flip
+    flipZone.addEventListener('click', e => {
+      e.stopPropagation();
+      doFlip();
+    });
+
+    // Click outside tab frame → gallery
+    document.addEventListener('click', e => {
+      if (e.defaultPrevented) return;
+      if (e.button !== 0) return;
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+      if (e.target.closest('#tabFrame, a, button')) return;
+      const sel = window.getSelection && window.getSelection().toString();
+      if (sel) return;
+      window.location.href = GALLERY;
+    });
+  </script>
+
+</body>
+</html>

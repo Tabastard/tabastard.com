@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="The world's largest collection of Rip-It energy drink can pull tabs. The cult military energy drink's every tab variant, curated by TabBastard.">
+    <title>World Record Collection of Rip-It Energy Drink Can Pull Tabs — Ta₿astard™</title>
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://tabastard.com/the-world-record-collection-of-rip-it-energy-soda-can-pull-tabs.html">
+    <meta property="og:title" content="World Record Collection of Rip-It Energy Drink Can Pull Tabs — Ta₿astard™">
+    <meta property="og:description" content="The world's largest collection of Rip-It energy drink can pull tabs. The cult military energy drink's every tab variant, curated by TabBastard.">
+    <meta property="og:image" content="https://tabastard.com/images/tabastard_banner.png">
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHS6J41QP1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-EHS6J41QP1');
+
+        /* ── Filter snap: move filter group into sticky header on scroll ── */
+        (function(){
+            const fg   = document.getElementById('filterGroup');
+            const snap = document.getElementById('headerFilterSnap');
+            const hero = document.querySelector('.page-hero');
+            if (!fg || !snap || !hero) return;
+            const heroParent  = fg.parentElement;
+            const heroAnchor  = fg.nextSibling;
+            let snapped = false;
+            const obs = new IntersectionObserver(([e]) => {
+                const want = !e.isIntersecting;
+                if (want === snapped) return;
+                snapped = want;
+                if (snapped) {
+                    snap.appendChild(fg);
+                    snap.classList.add('snap-active');
+                } else {
+                    heroParent.insertBefore(fg, heroAnchor);
+                    snap.classList.remove('snap-active');
+                }
+            }, { threshold: 0 });
+            obs.observe(hero);
+        })();
+    </script>
+    <style>
+        @font-face {
+            font-family: 'Super Comic';
+            src: url('fonts/Super%20Comic.ttf') format('truetype');
+            font-display: swap;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0b0b0d;
+            --panel: #15161a;
+            --panel-2: #1d1f25;
+            --line: #2a2d35;
+            --ink: #e9ecf1;
+            --ink-dim: #9aa2b1;
+            --accent: #d4b35a;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .site-nav {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            background: var(--panel);
+            border-bottom: 1px solid var(--line);
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.3s ease, opacity 0.25s ease;
+        }
+        .site-nav.nav-visible { max-height: 60px; opacity: 1; }
+        .site-nav-btn {
+            display: block;
+            text-align: center;
+            padding: 11px 8px;
+            color: var(--ink-dim);
+            text-decoration: none;
+            font-size: 0.65rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-right: 1px solid var(--line);
+            transition: color 0.18s, background 0.18s;
+        }
+        .site-nav-btn:last-child { border-right: none; }
+        .site-nav-btn:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+        .site-nav-btn.active { color: var(--accent); }
+
+        .page-hero {
+            text-align: center;
+            padding: 0.75rem 1rem 0.75rem;
+            background: var(--bg);
+        }
+
+        header {
+            text-align: center;
+            padding: 0.5rem 1rem 0.6rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 11, 13, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--line);
+        }
+
+        .header-content {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+        }
+
+        h1 {
+            font-family: 'Super Comic', system-ui, -apple-system, sans-serif;
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
+            font-weight: 400;
+            margin: 0 0 0.3rem;
+            width: 100%;
+            line-height: 1.08;
+            letter-spacing: 0.01em;
+        }
+
+        .h1-line {
+            display: block;
+            text-align: justify;
+            text-align-last: justify;
+            white-space: nowrap;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(16, 1fr);
+            gap: 0.5rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            contain: layout style;
+        }
+
+        .tab-item {
+            overflow: hidden;
+            transition: transform 0.2s ease;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            aspect-ratio: 1 / 1;
+            text-decoration: none;
+            color: inherit;
+        }
+        .tab-item:hover { transform: scale(1.08); z-index: 2; position: relative; }
+        .tab-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+        .tab-item img { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; }
+
+        @media (max-width: 600px) {
+            .gallery { grid-template-columns: repeat(7, 1fr); gap: 0.25rem; padding: 0.75rem; }
+        }
+
+        .social-links {
+            display: flex; justify-content: center; align-items: center;
+            gap: 2rem; padding: 2rem 1rem; flex-wrap: wrap;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .social-links a { display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease; }
+        .social-links a:hover { transform: scale(1.1); }
+        .social-links img { width: 24px; height: 24px; filter: brightness(0) invert(1); }
+
+        @media (max-width: 600px) {
+            .social-links {
+                display: grid; grid-template-columns: repeat(5, 1fr);
+                grid-template-rows: repeat(3, 1fr); gap: 0; padding: 0; width: 100%; max-width: 100%;
+            }
+            .social-links a { aspect-ratio: 1/1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+            .social-links img { width: 36%; height: 36%; max-width: none; max-height: none; }
+        }
+
+        footer {
+            text-align: center; padding: 2rem 1rem; color: var(--ink-dim);
+            font-size: 0.9rem; border-top: 1px solid var(--line); max-width: 100%; width: 100%;
+        }
+        footer a { color: var(--ink); text-decoration: none; opacity: 0.85; transition: opacity 0.2s ease, color 0.2s ease; }
+        footer a:hover { opacity: 1; color: var(--accent); }
+
+        .filter-row {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 4px;
+        }
+        .filter-row-top { gap: 0; margin-top: 8px; margin-bottom: 2px; width: 100%; justify-content: space-between; }
+        .filter-row-sub { overflow: hidden; max-height: 0; opacity: 0; transition: max-height 0.28s ease, opacity 0.22s ease; }
+        .filter-row-sub.open { max-height: 120px; opacity: 1; }
+
+        .tag {
+            font-size: 11px; font-weight: 600; letter-spacing: 0.13em;
+            text-transform: uppercase; color: var(--ink-dim);
+            background: rgba(255,255,255,0.04); border: 1px solid var(--line);
+            padding: 6px 14px; border-radius: 999px; cursor: pointer;
+            user-select: none; transition: color 0.15s, background 0.15s, border-color 0.15s; white-space: nowrap;
+        }
+        .tag:hover { color: var(--ink); background: rgba(255,255,255,0.08); }
+        .tag-all {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        .tag-all:hover { color: var(--ink); }
+        .tag-sep {
+            display: inline-block;
+            width: 1px;
+            height: 12px;
+            background: var(--line);
+            padding: 0;
+            margin: 0 2px;
+            pointer-events: none;
+            align-self: center;
+        }
+        .filter-row-top .tag {
+            background: none; border: none; padding: 4px 10px;
+            font-size: 12px; font-weight: 700; letter-spacing: 0.16em;
+            color: var(--ink-dim); border-radius: 0;
+        }
+        .filter-row-top .tag:hover { background: none; color: var(--ink); }
+        .filter-row-top .tag.active { color: #ffffff; }
+        .filter-row-sub .tag.active {
+            color: var(--sub-color, var(--accent));
+            border-color: color-mix(in srgb, var(--sub-color, var(--accent)) 45%, transparent);
+            background: color-mix(in srgb, var(--sub-color, var(--accent)) 10%, transparent);
+        }
+        .dot-swatch {
+            display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+            flex-shrink: 0; border: 1px solid rgba(255,255,255,0.18);
+            margin-right: 5px; vertical-align: middle; position: relative; top: -1px;
+        }
+
+        @media (max-width: 600px) {
+            .tag { font-size: 10px; padding: 5px 11px; }
+            .filter-row-sub.open { max-height: 200px; }
+        }
+
+        .tab-switcher {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 6px; width: 100%; margin-top: 0.9rem;
+        }
+        .tab-group {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 8px; padding: 10px 6px 12px;
+            border: 1px solid var(--line); border-radius: 6px;
+            background: var(--panel); cursor: pointer;
+            transition: border-color 0.18s, background 0.18s;
+        }
+        .tab-group:hover { background: rgba(255,255,255,0.03); }
+        .tab-group.active {
+            border-color: rgba(212,179,90,0.4);
+            background: rgba(212,179,90,0.04);
+        }
+        .tab-btn {
+            background: none; border: none; padding: 0;
+            font-size: 0.6rem; letter-spacing: 0.2em;
+            text-transform: uppercase; font-weight: 700;
+            color: var(--ink-dim); cursor: pointer; font-family: inherit;
+            text-align: center; width: 100%; transition: color 0.18s; white-space: nowrap;
+        }
+        .tab-group.active .tab-btn { color: var(--accent); }
+        .tab-counter { display: inline-flex; gap: 2px; align-items: center; font-size: 1.1rem; }
+        .tab-digit {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 1.45em; height: 1.9em; background: #080809;
+            border: 1px solid #2a2d35; border-radius: 3px;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1em; color: var(--ink); font-weight: 900;
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.7); overflow: hidden;
+            line-height: 1; text-shadow: none; transition: color 0.18s, text-shadow 0.18s;
+        }
+        .tab-digit.leading-zero { color: #3a3c44; }
+        .tab-group.active .tab-digit {
+            color: var(--accent);
+            text-shadow: 0 0 8px rgba(212,179,90,0.5);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.7), 0 0 6px rgba(212,179,90,0.08);
+        }
+        .tab-group.active .tab-digit.leading-zero { color: #3a3c44; text-shadow: none; }
+        .tab-digit.cycling { text-shadow: 0 0 12px rgba(212,179,90,0.9); }
+
+        /* Tabs Found box: always white/grey regardless of active state */
+        [data-section="index"].tab-group { border-color: rgba(255,255,255,0.12); background: rgba(255,255,255,0.03); cursor: pointer; }
+        [data-section="index"].tab-group .tab-btn { color: rgba(255,255,255,0.45); }
+        [data-section="index"].tab-group.active { border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.05); }
+        [data-section="index"].tab-group.active .tab-btn { color: rgba(255,255,255,0.7); }
+        [data-section="index"].tab-group.active .tab-digit { color: #d0d4de; text-shadow: 0 0 6px rgba(255,255,255,0.1); box-shadow: inset 0 0 8px rgba(0,0,0,0.7); }
+        [data-section="index"].tab-group.active .tab-digit.leading-zero { color: #3a3c44; text-shadow: none; }
+
+        /* Selection box uses --sel-color (set dynamically per page/filter) */
+        [data-section="selection"].tab-group.active {
+            border-color: color-mix(in srgb, var(--sel-color, var(--accent)) 40%, transparent);
+            background: color-mix(in srgb, var(--sel-color, var(--accent)) 4%, transparent);
+        }
+        [data-section="selection"].tab-group.active .tab-btn { color: var(--sel-color, var(--accent)); }
+        [data-section="selection"].tab-group.active .tab-digit {
+            color: var(--sel-color, var(--accent));
+            text-shadow: 0 0 8px color-mix(in srgb, var(--sel-color, var(--accent)) 50%, transparent);
+            box-shadow: inset 0 0 8px rgba(0,0,0,0.7), 0 0 6px color-mix(in srgb, var(--sel-color, var(--accent)) 8%, transparent);
+        }
+        [data-section="selection"].tab-group.active .tab-digit.leading-zero { color: #3a3c44; text-shadow: none; }
+
+        .search-wrap { position: relative; flex: 1; min-width: 0; }
+        .search-icon {
+            position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+            width: 14px; height: 14px; stroke: var(--ink-dim); fill: none;
+            stroke-width: 2; stroke-linecap: round; pointer-events: none; opacity: 0.6;
+        }
+        .search-input {
+            width: 100%; background: #0d0e11; border: 1px solid var(--line);
+            border-radius: 7px; color: var(--ink); font-size: 0.875rem;
+            font-family: inherit; padding: 8px 12px 8px 34px; outline: none; transition: border-color 0.2s;
+        }
+        .search-input::placeholder { color: var(--ink-dim); opacity: 0.55; }
+        .search-input:focus { border-color: rgba(212,179,90,0.45); }
+        .suggest-box {
+            position: fixed; background: #13141a; border: 1px solid var(--line);
+            border-radius: 10px; z-index: 9999; display: none;
+            box-shadow: 0 12px 40px rgba(0,0,0,0.75); max-height: 440px;
+            overflow-y: auto; padding: 4px 0 10px; min-width: 320px;
+        }
+        .suggest-box.open { display: block; }
+        .suggest-group { padding: 8px 14px 6px; }
+        .suggest-group + .suggest-group { border-top: 1px solid var(--line); }
+        .suggest-group-label {
+            display: block; font-size: 0.57rem; letter-spacing: 0.15em;
+            text-transform: uppercase; color: var(--ink-dim); opacity: 0.5; padding-bottom: 8px;
+        }
+        .suggest-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .suggest-pill {
+            display: inline-flex; align-items: center; gap: 5px; font-size: 11px;
+            font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+            color: var(--ink-dim); background: rgba(255,255,255,0.04);
+            border: 1px solid var(--line); padding: 5px 12px; border-radius: 999px;
+            cursor: pointer; white-space: nowrap; transition: color 0.15s, background 0.15s, border-color 0.15s;
+        }
+        .suggest-pill:hover, .suggest-pill.kbd-active {
+            color: var(--ink); background: rgba(255,255,255,0.08);
+            border-color: color-mix(in srgb, var(--sub-color, var(--accent)) 50%, transparent);
+        }
+        .suggest-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; border: 1px solid rgba(255,255,255,0.15); }
+
+        .era-timeline { position: relative; width: min(480px, 88vw); margin: 10px auto 0; padding: 0 12px; }
+        .era-track-line { position: absolute; top: 5px; left: 12px; right: 12px; height: 1px; background: var(--line); }
+        .era-points { display: flex; justify-content: space-between; }
+        .era-point { display: flex; flex-direction: column; align-items: center; gap: 7px; cursor: pointer; position: relative; z-index: 1; }
+        .era-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--panel); border: 1.5px solid var(--line); transition: background 0.18s, border-color 0.18s, transform 0.18s, box-shadow 0.18s; }
+        .era-point.active .era-dot { background: var(--accent); border-color: var(--accent); box-shadow: 0 0 8px rgba(212,179,90,0.55); transform: scale(1.25); }
+        .era-date { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); user-select: none; white-space: nowrap; transition: color 0.18s; }
+        .era-point.active .era-date { color: var(--accent); }
+
+        /* ── Hamburger button ── */
+        .hamburger {
+            flex-shrink: 0;
+            width: 38px;
+            height: 38px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 6px;
+            transition: background 0.18s;
+        }
+        .header-search-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            margin-top: 8px;
+        }
+        .header-logo {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            text-decoration: none;
+            opacity: 0.75;
+            transition: opacity 0.18s;
+        }
+        .header-logo:hover { opacity: 1; }
+        .header-logo svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--ink);
+        }
+        .header-filter-snap {
+            width: 100%;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.22s ease, opacity 0.18s ease;
+            opacity: 0;
+        }
+        .header-filter-snap.snap-active {
+            max-height: 400px;
+            opacity: 1;
+            margin-top: 4px;
+        }
+                .hamburger:hover { background: rgba(255,255,255,0.07); }
+        .hamburger span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            background: var(--ink-dim);
+            border-radius: 2px;
+            transition: background 0.18s, transform 0.25s, opacity 0.2s;
+            transform-origin: center;
+        }
+        .hamburger:hover span { background: var(--ink); }
+        .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        /* ── Nav overlay ── */
+        .nav-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            z-index: 9000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.28s ease;
+        }
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+        /* ── Slide-out drawer ── */
+        .nav-drawer {
+            position: fixed;
+            top: 0; right: 0; bottom: 0;
+            width: min(260px, 82vw);
+            background: #111217;
+            border-left: 1px solid var(--line);
+            z-index: 9050;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .nav-drawer.open { transform: translateX(0); }
+        .nav-drawer-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px 12px;
+            border-bottom: 1px solid var(--line);
+            flex-shrink: 0;
+        }
+        .nav-drawer-title {
+            font-family: 'Super Comic', system-ui, sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.07em;
+            color: var(--accent);
+        }
+        .nav-drawer-close {
+            background: none;
+            border: none;
+            color: var(--ink-dim);
+            cursor: pointer;
+            padding: 4px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.18s, background 0.18s;
+        }
+        .nav-drawer-close:hover { color: var(--ink); background: rgba(255,255,255,0.06); }
+        .nav-drawer-links {
+            display: flex;
+            flex-direction: column;
+            padding: 8px 0 24px;
+        }
+        .nav-drawer-link {
+            display: block;
+            padding: 13px 22px;
+            color: var(--ink-dim);
+            text-decoration: none;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            font-weight: 700;
+            border-left: 2px solid transparent;
+            transition: color 0.18s, background 0.18s, border-color 0.18s;
+        }
+        .nav-drawer-link:hover { color: var(--ink); background: rgba(255,255,255,0.04); }
+        .nav-drawer-link.active { color: var(--accent); border-left-color: var(--accent); }
+    </style>
+  <link rel="canonical" href="https://tabastard.com/the-world-record-collection-of-rip-it-energy-soda-can-pull-tabs.html">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "World Record Collection of Rip-It Energy Drink Can Pull Tabs",
+    "description": "The world's largest collection of Rip-It energy drink can pull tabs. The cult military energy drink's every tab variant, curated by TabBastard.",
+    "url": "https://tabastard.com/the-world-record-collection-of-rip-it-energy-soda-can-pull-tabs.html",
+    "isPartOf": { "@type": "WebSite", "name": "TabBastard", "url": "https://tabastard.com" }
+  }
+  </script>
+</head>
+<body>
+    <!-- Nav: hidden on load, appears on scroll-up -->
+    <div class="nav-overlay" id="navOverlay"></div>
+    <div class="nav-drawer" id="navDrawer" aria-hidden="true">
+        <div class="nav-drawer-head">
+            <span class="nav-drawer-title">Ta₿astard™</span>
+            <button class="nav-drawer-close" id="drawerClose" aria-label="Close menu">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <path d="M6 6L18 18M18 6L6 18"/>
+                </svg>
+            </button>
+        </div>
+        <nav class="nav-drawer-links">
+            <a class="nav-drawer-link" href="the-internets-largest-pull-tab-collection.html">Tab Index</a>
+            <a class="nav-drawer-link" href="#">Field Guide</a>
+            <a class="nav-drawer-link" href="bounties.html">Tab Bounties</a>
+            <a class="nav-drawer-link" href="#">Soda Memes</a>
+        </nav>
+    </div>
+
+    <nav class="site-nav">
+        <a class="site-nav-btn" href="the-internets-largest-pull-tab-collection.html">Tab Index</a>
+        <a class="site-nav-btn" href="#">Field Guide</a>
+        <a class="site-nav-btn" href="bounties.html">Tab Bounties</a>
+        <a class="site-nav-btn" href="#">Soda Memes</a>
+    </nav>
+
+    <!-- Sticky search + filter bar -->
+    <header>
+        <div class="header-content">
+            <div class="header-search-row">
+                <a class="header-logo" href="index.html" aria-label="TabBastard Home">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 61.68 100"><path d="M30.84,0C13.81,0,0,11.38,0,25.42v49.16c0,14.04,13.81,25.42,30.84,25.42s30.84-11.38,30.84-25.42V25.42C61.68,11.38,47.88,0,30.84,0ZM30.94,78.13c-3.46,0-6.26-2.8-6.26-6.26s2.8-6.26,6.26-6.26,6.26,2.8,6.26,6.26-2.8,6.26-6.26,6.26ZM47.48,78.13c-1.86,0-3.36-1.51-3.36-3.36,0-9.07-5.83-16.45-12.99-16.45s-12.99,7.38-12.99,16.45c0,1.86-1.51,3.36-3.36,3.36s-3.36-1.51-3.36-3.36c0-12.78,8.85-23.18,19.72-23.18s19.72,10.4,19.72,23.18c0,1.86-1.51,3.36-3.37,3.36ZM42.11,37.87h-23.51c-7.4,0-10.4-5.15-9.08-12.43,1.12-6.17,6.91-15.88,20.83-15.89h0c14.01,0,19.71,9.72,20.84,15.89,1.32,7.28-1.68,12.43-9.08,12.43Z"/></svg>
+                </a>
+                <div class="search-wrap" id="searchWrap">
+                                <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke-linecap="round">
+                                    <circle cx="11" cy="11" r="7"/><line x1="16.5" y1="16.5" x2="22" y2="22"/>
+                                </svg>
+                                <input type="text" class="search-input" id="searchInput"
+                                       placeholder="Search colors, brands, types, eras…" autocomplete="off" />
+                            </div>
+                <button class="hamburger" id="hamburgerBtn" aria-label="Open menu" aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+            <div class="header-filter-snap" id="headerFilterSnap"></div>
+        </div>
+    </header>
+
+    <!-- Hero: scrolls away -->
+    <div class="page-hero">
+        <div class="header-content">
+            <h1><span class="h1-line">The Internet's</span><span class="h1-line">Largest Collection of</span><span class="h1-line"><a href="https://www.ripitenergydrink.com" target="_blank" rel="noopener" style="color:#0066cc;text-decoration:none">Rip-It</a> Pull Tabs</span></h1>
+            <div class="tab-switcher" id="tabSwitcher">
+                <div class="tab-group active" data-section="index" role="link" title="View all tabs" onclick="window.location.href='the-internets-largest-pull-tab-collection.html'" style="cursor:pointer;">
+                    <span class="tab-btn">Global Tab Index</span>
+                    <span class="tab-counter" id="tabCount"></span>
+                </div>
+                <div class="tab-group" data-section="selection">
+                    <span class="tab-btn" id="selectionLabel">Selection</span>
+                    <span class="tab-counter" id="selectionCount"></span>
+                </div>
+            </div>
+            <div id="filterGroup">
+                <div class="filter-row filter-row-top" id="filterTop">
+                    <a class="tag tag-all" href="the-internets-largest-pull-tab-collection.html">All</a>
+                    <span class="tag active" data-cat="color">Color</span>
+                    <span class="tag" data-cat="brand">Brand</span>
+                    <span class="tag" data-cat="type">Type</span>
+                    <span class="tag" data-cat="era">Era</span>
+                    <span class="tag" data-cat="marks">Marks</span>
+                </div>
+                <div class="filter-row filter-row-sub" id="filterSub"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+
+    <div style="max-width:800px;margin:2.5rem auto 0;padding:0 1.5rem;text-align:center;color:var(--ink-dim);font-size:0.9rem;line-height:1.6;">
+      Rip-It energy drink pull tabs are known for their bold blue and electric color palette, beloved by military personnel and budget energy drink fans alike. TabBastard's Rip-It collection documents every variant of this cult-favorite drink's can tab.
+    </div>
+    <nav class="social-links">
+        <a href="https://www.instagram.com/tabbastard" target="_blank" rel="noopener" aria-label="Instagram – tabbastard"><img src="icons/instagram.png" alt="Instagram – tabbastard"></a>
+        <a href="https://github.com/tabastard" target="_blank" rel="noopener" aria-label="GitHub – tabastard"><img src="icons/github.png" alt="GitHub – tabastard"></a>
+        <a href="https://www.linkedin.com/in/tabastard/" target="_blank" rel="noopener" aria-label="LinkedIn – tabastard"><img src="icons/linkedin.png" alt="LinkedIn – tabastard"></a>
+        <a href="https://www.patreon.com/cw/Tabastard" target="_blank" rel="noopener" aria-label="Patreon – Tabastard"><img src="icons/patreon.png" alt="Patreon – Tabastard"></a>
+        <a href="https://giphy.com/channel/Tabastard" target="_blank" rel="noopener" aria-label="Giphy – Tabastard"><img src="icons/giphy.png" alt="Giphy – Tabastard"></a>
+        <a href="https://medium.com/@tabastard" target="_blank" rel="noopener" aria-label="Medium – tabastard"><img src="icons/medium.png" alt="Medium – tabastard"></a>
+        <a href="https://substack.com/@tabasterd" target="_blank" rel="noopener" aria-label="Substack – tabasterd"><img src="icons/substack.png" alt="Substack – tabasterd"></a>
+        <a href="https://soundcloud.com/tabastard" target="_blank" rel="noopener" aria-label="SoundCloud – tabastard"><img src="icons/soundcloud.png" alt="SoundCloud – tabastard"></a>
+        <a href="https://x.com/TabBastard" target="_blank" rel="noopener" aria-label="X – TabBastard"><img src="icons/x.png" alt="X – TabBastard"></a>
+        <a href="https://www.pinterest.com/tabastard" target="_blank" rel="noopener" aria-label="Pinterest – tabastard"><img src="icons/pinterest.png" alt="Pinterest – tabastard"></a>
+        <a href="https://www.reddit.com/user/TabBastard" target="_blank" rel="noopener" aria-label="Reddit – TabBastard"><img src="icons/reddit.png" alt="Reddit – TabBastard"></a>
+        <a href="https://www.facebook.com/tabastard" target="_blank" rel="noopener" aria-label="Facebook – tabastard"><img src="icons/facebook.png" alt="Facebook – tabastard"></a>
+        <a href="https://www.tumblr.com/tabastard" target="_blank" rel="noopener" aria-label="Tumblr – tabastard"><img src="icons/tumblr.png" alt="Tumblr – tabastard"></a>
+        <a href="https://www.youtube.com/@Tabastard" target="_blank" rel="noopener" aria-label="YouTube – Tabastard"><img src="icons/youtube.png" alt="YouTube – Tabastard"></a>
+        <a href="https://www.tiktok.com/@tabastard" target="_blank" rel="noopener" aria-label="TikTok – tabastard"><img src="icons/tiktok.png" alt="TikTok – tabastard"></a>
+    </nav>
+
+    <footer>
+        © 2025 Ta₿astard™ • All Tabs Reserved • <a href="mailto:tabzillionaire@gmail.com">tabzillionaire@gmail.com</a>
+        <br><br>
+        <div style="opacity: 0.8; font-size: 0.85rem;">
+            Partner Sites:
+            <a href="https://poptab.id/" target="_blank" rel="noopener">POPTAB.id</a> •
+            <a href="https://tabzillions.com/" target="_blank" rel="noopener">TABZILLIONS</a> •
+            <a href="https://tabzeum.org/" target="_blank" rel="noopener">TABZEUM</a>
+        </div>
+    </footer>
+
+    <script>
+        // hue = (i/1000)*360  →  i = hue*(1000/360)
+        const SUBS = {
+            color: [
+                { label: 'Red',        color: '#ef4444', ranges: [[1,42],[972,1000]], url: 'the-world-record-collection-of-red-soda-pop-can-tabs.html' },
+                { label: 'Orange',     color: '#f97316', ranges: [[42,111]],          url: 'the-world-record-collection-of-orange-soda-pop-can-tabs.html' },
+                { label: 'Yellow',     color: '#eab308', ranges: [[111,208]],         url: 'the-world-record-collection-of-yellow-soda-pop-can-tabs.html' },
+                { label: 'Green',      color: '#22c55e', ranges: [[208,417]],         url: 'the-world-record-collection-of-green-soda-pop-can-tabs.html' },
+                { label: 'Cyan',       color: '#06b6d4', ranges: [[417,528]],         url: 'the-world-record-collection-of-cyan-soda-pop-can-tabs.html' },
+                { label: 'Blue',       color: '#3b82f6', ranges: [[528,694]],         url: 'the-world-record-collection-of-blue-soda-pop-can-tabs.html' },
+                { label: 'Purple',     color: '#a855f7', ranges: [[694,833]],         url: 'the-world-record-collection-of-purple-soda-pop-can-tabs.html' },
+                { label: 'Pink',       color: '#ec4899', ranges: [[833,972]],         url: 'the-world-record-collection-of-pink-soda-pop-can-tabs.html' },
+                { label: 'Gold',       color: '#d4a017', ranges: [[111,153]],         url: 'the-world-record-collection-of-gold-soda-pop-can-tabs.html' },
+                { label: 'Silver',     color: '#94a3b8', ranges: [[1001,1100]],       url: 'the-world-record-collection-of-silver-soda-pop-can-tabs.html' },
+                { label: 'Black',      color: '#555',    ranges: [[1101,1200]],       url: 'the-world-record-collection-of-black-soda-pop-can-tabs.html' },
+            ],
+            brand: [
+                { label: 'Coca-Cola',     color: '#ef4444', ranges: [[1,33],[967,1000]], url: 'the-world-record-collection-of-coca-cola-soda-can-tabs.html' },
+                { label: 'Budweiser',     color: '#dc2626', ranges: [[8,61]],            url: 'the-world-record-collection-of-budweiser-beer-pull-tabs.html' },
+                { label: 'Red Bull',      color: '#f97316', ranges: [[56,111]],          url: 'the-world-record-collection-of-red-bull-energy-soda-can-pull-tabs.html' },
+                { label: 'Mountain Dew',  color: '#a3e635', ranges: [[208,264]],         url: 'the-world-record-collection-of-mountain-dew-soda-can-pull-tabs.html' },
+                { label: 'Monster Energy',color: '#39d353', ranges: [[292,375]],         url: 'the-world-record-collection-of-monster-energy-soda-can-pull-tabs.html' },
+                { label: 'Heineken',      color: '#16a34a', ranges: [[306,389]],         url: 'the-world-record-collection-of-heineken-beer-pull-tabs.html' },
+                { label: 'Sprite',        color: '#4ade80', ranges: [[328,411]],         url: 'the-world-record-collection-of-sprite-soda-can-pull-tabs.html' },
+                { label: 'Pepsi',         color: '#3b82f6', ranges: [[583,689]],         url: 'the-world-record-collection-of-pepsi-soda-can-pull-tabs.html' },
+                { label: 'Bubly',         color: '#f472b6', ranges: [[833,972]],         url: 'the-world-record-collection-of-bubly-water-soda-can-pull-tabs.html' },
+                { label: 'Rip-It',        color: '#60a5fa', ranges: [[583,667]],         url: 'the-world-record-collection-of-rip-it-energy-soda-can-pull-tabs.html' },
+                { label: 'Peace Tea',     color: '#fb923c', ranges: [[56,111]],          url: 'the-world-record-collection-of-peace-tea-soda-can-pull-tabs.html' },
+            ],
+            type: [
+                { label: 'Stay-Tab',  color: '#94a3b8', ranges: [[1,333]],    url: 'the-world-record-collection-of-stay-on-tab-vintage-pull-tabs.html' },
+                { label: 'Ring Pull', color: '#a78bfa', ranges: [[501,700]],  url: 'the-world-record-collection-of-vintage-ring-pull-can-tabs.html' },
+                { label: 'U-Tab',     color: '#34d399', ranges: [[701,875]],  url: 'the-world-record-collection-of-u-tab-vintage-can-tabs.html' },
+                { label: 'Zip Top',   color: '#f472b6', ranges: [[876,1000]], url: 'the-world-record-collection-of-zip-top-can-tabs.html' },
+            ],
+            era: [
+                { label: '1960 Classic', dates: '‘1962–1969', color: '#c084fc', ranges: [[1001,1200]] },
+                { label: '70 Vintage',   dates: '‘1970–1979', color: '#a78bfa', ranges: [[751,1000]],  url: 'the-world-record-collection-of-70s-vintage-soda-can-tabs.html' },
+                { label: '80 Retro',     dates: '‘1980–1989', color: '#fb923c', ranges: [[501,750]],   url: 'the-world-record-collection-of-80s-retro-soda-can-tabs.html' },
+                { label: '90 Y2K',       dates: '‘1990–1999', color: '#f472b6', ranges: [[251,500]],   url: 'the-world-record-collection-of-90s-y2k-soda-can-tabs.html' },
+                { label: '2000 Modern',  dates: '‘2000–Now',  color: '#60a5fa', ranges: [[1,250]],     url: 'the-world-record-collection-of-2000s-modern-soda-can-tabs.html' },
+            ],
+            marks: [
+                { label: 'Embossed',   color: '#e2e8f0', ranges: [[1,300]]    },
+                { label: 'Printed',    color: '#93c5fd', ranges: [[301,600]]   },
+                { label: 'Stamped',    color: '#fca5a5', ranges: [[601,900]]   },
+                { label: 'Unmarked',   color: '#6b7280', ranges: [[901,1200]]  },
+            ],
+        };
+
+        const gallery  = document.getElementById('gallery');
+        const filterSub = document.getElementById('filterSub');
+        const DEMO_URL  = 'poptab_00000.html';
+        const items     = [];
+        const TOTAL  = 1296;
+
+        function makeCounter(el) {
+            const digits = 5;
+            const els = [];
+            for (let i = 0; i < digits; i++) {
+                const d = document.createElement('span');
+                d.className = 'tab-digit leading-zero';
+                d.textContent = '0';
+                el.appendChild(d);
+                els.push(d);
+            }
+            let _timers = [];
+            return function cycle(n, fast) {
+                _timers.forEach(clearInterval); _timers = [];
+                const target = String(Math.min(n, 99999)).padStart(digits, '0');
+                const duration = fast ? 400 : 1100;
+                const tickMs = 45;
+                let firstSig = 0;
+                while (firstSig < digits - 1 && target[firstSig] === '0') firstSig++;
+                const sigCount = digits - firstSig;
+                els.forEach((d, i) => {
+                    d.classList.remove('cycling');
+                    if (i < firstSig) {
+                        d.textContent = '0'; d.classList.add('leading-zero');
+                    } else {
+                        d.classList.remove('leading-zero'); d.classList.add('cycling');
+                        let ticks = 0;
+                        const settle = Math.round((duration / tickMs) * ((i - firstSig + 1) / sigCount));
+                        let cur = Math.floor(Math.random() * 10);
+                        const iv = setInterval(() => {
+                            if (ticks >= settle) { clearInterval(iv); d.textContent = target[i]; d.classList.remove('cycling'); return; }
+                            cur = (cur + 1) % 10; d.textContent = cur; ticks++;
+                        }, tickMs);
+                        _timers.push(iv);
+                    }
+                });
+            };
+        }
+
+        const setCount          = makeCounter(document.getElementById('tabCount'));
+        const setSelectionCount = makeCounter(document.getElementById('selectionCount'));
+        const selectionLabel    = document.getElementById('selectionLabel');
+        const selectionGroup    = document.querySelector('[data-section="selection"]');
+
+        function setFilterLabel(text, color) {
+            selectionLabel.textContent = text ? text + ' Tabs' : 'Selection';
+            selectionGroup.classList.add('active');
+            if (color) selectionGroup.style.setProperty('--sel-color', color);
+            else selectionGroup.style.removeProperty('--sel-color');
+        }
+
+        function clearSelection() {
+            selectionLabel.textContent = 'Selection';
+            selectionGroup.classList.remove('active');
+            selectionGroup.style.removeProperty('--sel-color');
+        }
+
+        function setRawFilterLabel(text, color) {
+            selectionLabel.textContent = text || 'Selection';
+            selectionGroup.classList.add('active');
+            if (color) selectionGroup.style.setProperty('--sel-color', color);
+            else selectionGroup.style.removeProperty('--sel-color');
+        }
+
+        const CAT_SECTION_LABELS = { color: 'Tab Colors', brand: 'Tab Brands', type: 'Tab Types', era: 'Tab Eras', marks: 'Tab Marks', bounty: 'Tab Bounties' };
+
+        function countRanges(ranges) {
+            if (!ranges) return TOTAL;
+            return ranges.reduce((s, [lo, hi]) => s + (hi - lo + 1), 0);
+        }
+
+        for (let i = 1; i <= 1200; i++) {
+            const idx = String(i).padStart(4, '0');
+            const el  = document.createElement('a');
+            el.className = 'tab-item';
+            el.href = DEMO_URL;
+            el.setAttribute('aria-label', `Pull Tab ${i} — open 3D view`);
+            const id = String(i).padStart(5, '0');
+            el.innerHTML = `<img src="images/all_tabs/pop-tab-${idx}.png" alt="POP TAB ID #${id}" title="POP TAB ID #${id}" loading="lazy">`;
+            el.dataset.index = i;
+            gallery.appendChild(el);
+            items.push(el);
+        }
+
+        function inRange(i, ranges) {
+            return !ranges || ranges.some(([lo, hi]) => i >= lo && i <= hi);
+        }
+
+        function applyRanges(ranges) {
+            requestAnimationFrame(() => {
+                items.forEach(el => {
+                    el.style.display = inRange(+el.dataset.index, ranges) ? '' : 'none';
+                });
+            });
+        }
+
+        function updateEra(idx, fast) {
+            const era = SUBS.era[idx];
+            applyRanges(era.ranges);
+            const n = countRanges(era.ranges);
+            setSelectionCount(n, fast !== false);
+            setFilterLabel(era.label, era.color);
+        }
+
+        const searchIndex = [];
+        const CAT_LABELS = { color: 'Color', brand: 'Brand', type: 'Type', era: 'Era', marks: 'Marks' };
+        Object.keys(SUBS).forEach(cat => {
+            const subs = SUBS[cat];
+            if (!Array.isArray(subs)) return;
+            subs.forEach(sub => {
+                searchIndex.push({ label: sub.label, cat, color: sub.color || null, ranges: sub.ranges, url: sub.url || null });
+            });
+        });
+
+        function initSearch() {
+            const input = document.getElementById('searchInput');
+            if (!input) return;
+
+            const box = document.createElement('div');
+            box.className = 'suggest-box';
+            document.body.appendChild(box);
+
+            function positionBox() {
+                const r = input.getBoundingClientRect();
+                box.style.top   = (r.bottom + 5) + 'px';
+                box.style.left  = r.left + 'px';
+                box.style.width = Math.max(r.width, 340) + 'px';
+            }
+
+            let kbdIdx = -1;
+
+            function getMatches(q) {
+                if (!q) return searchIndex;
+                const lq = q.toLowerCase();
+                return searchIndex.filter(item => item.label.toLowerCase().includes(lq));
+            }
+
+            function getKbdItems() { return [...box.querySelectorAll('.suggest-pill')]; }
+
+            function renderSuggestions(matches) {
+                box.innerHTML = '';
+                kbdIdx = -1;
+                if (!matches.length) { box.classList.remove('open'); return; }
+                const groups = {};
+                matches.forEach(item => { (groups[item.cat] = groups[item.cat] || []).push(item); });
+                Object.entries(groups).forEach(([cat, catItems]) => {
+                    const grp = document.createElement('div');
+                    grp.className = 'suggest-group';
+                    const grpLbl = document.createElement('span');
+                    grpLbl.className = 'suggest-group-label';
+                    grpLbl.textContent = CAT_LABELS[cat] || cat;
+                    grp.appendChild(grpLbl);
+                    const pillRow = document.createElement('div');
+                    pillRow.className = 'suggest-pills';
+                    catItems.forEach(item => {
+                        const pill = document.createElement('div');
+                        pill.className = 'suggest-pill';
+                        pill.style.setProperty('--sub-color', item.color || 'var(--accent)');
+                        if (item.color) {
+                            const dot = document.createElement('span');
+                            dot.className = 'suggest-dot';
+                            dot.style.backgroundColor = item.color;
+                            pill.appendChild(dot);
+                        }
+                        const lbl = document.createElement('span');
+                        lbl.textContent = item.label;
+                        pill.appendChild(lbl);
+                        pill.addEventListener('mousedown', e => { e.preventDefault(); selectItem(item); });
+                        pillRow.appendChild(pill);
+                    });
+                    grp.appendChild(pillRow);
+                    box.appendChild(grp);
+                });
+                positionBox();
+                box.classList.add('open');
+            }
+
+            function selectItem(item) {
+                if (item.url) { window.location.href = item.url; return; }
+                buildSub(item.cat);
+                const subEl = [...filterSub.querySelectorAll('.tag')].find(t => t.dataset.label === item.label);
+                if (subEl) {
+                    filterSub.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+                    subEl.classList.add('active');
+                }
+                applyRanges(item.ranges);
+                const n = countRanges(item.ranges);
+                setSelectionCount(n, true);
+                setFilterLabel(item.label);
+                box.classList.remove('open');
+            }
+
+            input.addEventListener('input', () => {
+                const q = input.value.trim();
+                if (q) renderSuggestions(getMatches(q));
+                else box.classList.remove('open');
+            });
+            input.addEventListener('blur',  () => setTimeout(() => box.classList.remove('open'), 160));
+
+            input.addEventListener('keydown', e => {
+                const items = getKbdItems();
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    items.forEach(el => el.classList.remove('kbd-active'));
+                    kbdIdx = Math.min(kbdIdx + 1, items.length - 1);
+                    if (items[kbdIdx]) { items[kbdIdx].classList.add('kbd-active'); items[kbdIdx].scrollIntoView({ block: 'nearest' }); }
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    items.forEach(el => el.classList.remove('kbd-active'));
+                    kbdIdx = Math.max(kbdIdx - 1, 0);
+                    if (items[kbdIdx]) { items[kbdIdx].classList.add('kbd-active'); items[kbdIdx].scrollIntoView({ block: 'nearest' }); }
+                } else if (e.key === 'Enter' && kbdIdx >= 0 && items[kbdIdx]) {
+                    items[kbdIdx].dispatchEvent(new MouseEvent('mousedown'));
+                } else if (e.key === 'Escape') {
+                    box.classList.remove('open');
+                }
+            });
+        }
+
+        function buildSub(cat) {
+            filterSub.innerHTML = '';
+            const subs = SUBS[cat];
+            if (!subs) { filterSub.classList.remove('open'); return; }
+
+            subs.forEach(({ label, color, ranges, url }) => {
+                const t = document.createElement('span');
+                t.className = 'tag';
+                t.style.setProperty('--sub-color', color);
+                if (cat === 'color') {
+                    const dot = document.createElement('span');
+                    dot.className = 'dot-swatch';
+                    dot.style.backgroundColor = color;
+                    t.appendChild(dot);
+                }
+                t.appendChild(document.createTextNode(label));
+                t.dataset.label = label;
+                t.dataset.ranges = JSON.stringify(ranges);
+                if (url) t.dataset.url = url;
+                filterSub.appendChild(t);
+            });
+            filterSub.classList.add('open');
+        }
+
+        const filterTop = document.getElementById('filterTop');
+        filterTop.addEventListener('click', e => {
+            const tag = e.target.closest('.tag');
+            if (!tag) return;
+            filterTop.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            tag.classList.add('active');
+            const cat = tag.dataset.cat;
+            if (cat === 'bounty') { window.location.href = 'bounties.html'; return; }
+            buildSub(cat);
+            applyRanges(null);
+            setRawFilterLabel(CAT_SECTION_LABELS[cat] || cat, null);
+            setSelectionCount(TOTAL, true);
+        });
+
+        filterSub.addEventListener('click', e => {
+            const el = e.target.closest('.tag');
+            if (!el) return;
+            if (el.dataset.url) { window.location.href = el.dataset.url; return; }
+            filterSub.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+            el.classList.add('active');
+            const ranges = JSON.parse(el.dataset.ranges);
+            applyRanges(ranges);
+            const n = countRanges(ranges);
+            setSelectionCount(n, true);
+            setFilterLabel(el.dataset.label || el.textContent.trim(), el.style.getPropertyValue('--sub-color') || null);
+        });
+
+        function fitH1() {
+            const h1 = document.querySelector('h1');
+            if (!h1) return;
+            const lines = Array.from(h1.querySelectorAll('.h1-line'));
+            if (!lines.length) return;
+            lines.forEach(l => { l.style.whiteSpace = 'nowrap'; l.style.textAlign = 'left'; });
+            h1.style.fontSize = '';
+            const containerW = h1.offsetWidth;
+            if (!containerW) return;
+            let lo = 8, hi = 300;
+            while (hi - lo > 0.5) {
+                const mid = (lo + hi) / 2;
+                h1.style.fontSize = mid + 'px';
+                const maxW = Math.max(...lines.map(l => l.scrollWidth));
+                if (maxW <= containerW) lo = mid; else hi = mid;
+            }
+            h1.style.fontSize = lo + 'px';
+            lines.forEach(l => { l.style.whiteSpace = ''; l.style.textAlign = ''; });
+        }
+
+        (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
+            fitH1();
+            window.addEventListener('resize', fitH1);
+        });
+
+        setCount(TOTAL, false);
+
+        // Auto-filter for sub-pages — must run after listeners are attached
+        window.__AF__ = { cat: 'brand', sub: 'Rip-It' };
+        if (window.__AF__) {
+            const { cat, sub } = window.__AF__;
+            const catEl = document.querySelector(`[data-cat="${cat}"]`);
+            if (catEl) {
+                catEl.click();
+                const subEl = [...document.querySelectorAll('#filterSub .tag')]
+                    .find(t => t.dataset.label === sub);
+                if (subEl) {
+                    filterSub.querySelectorAll('.tag').forEach(t => t.classList.remove('active'));
+                    subEl.classList.add('active');
+                    const ranges = JSON.parse(subEl.dataset.ranges);
+                    applyRanges(ranges);
+                    const pageColor = (Array.isArray(SUBS[cat]) ? SUBS[cat].find(s => s.label === sub) : null || {}).color || null;
+                    setSelectionCount(countRanges(ranges), false);
+                    setFilterLabel(sub, pageColor);
+                }
+            }
+        }
+
+        initSearch();
+
+        const siteNav = document.querySelector('.site-nav');
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            if (y < lastScrollY) siteNav.classList.add('nav-visible');
+            else siteNav.classList.remove('nav-visible');
+            lastScrollY = y;
+        }, { passive: true });
+
+        // ── Hamburger / slide-out drawer ──
+        (function() {
+            const btn      = document.getElementById('hamburgerBtn');
+            const drawer   = document.getElementById('navDrawer');
+            const overlay  = document.getElementById('navOverlay');
+            const closeBtn = document.getElementById('drawerClose');
+            if (!btn) return;
+
+            // Mark active link by matching href to current page
+            const page = location.pathname.split('/').pop() || 'index.html';
+            drawer.querySelectorAll('.nav-drawer-link').forEach(a => {
+                if (a.getAttribute('href').split('/').pop() === page) a.classList.add('active');
+            });
+
+            function open()  { btn.classList.add('open'); drawer.classList.add('open'); overlay.classList.add('open'); btn.setAttribute('aria-expanded','true'); drawer.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+            function close() { btn.classList.remove('open'); drawer.classList.remove('open'); overlay.classList.remove('open'); btn.setAttribute('aria-expanded','false'); drawer.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+
+            btn.addEventListener('click', () => btn.classList.contains('open') ? close() : open());
+            closeBtn.addEventListener('click', close);
+            overlay.addEventListener('click', close);
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+        })();
+    </script>
+
+
+</body>
+</html>
